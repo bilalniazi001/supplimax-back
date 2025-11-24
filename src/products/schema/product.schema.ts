@@ -7,7 +7,7 @@ export type ProductDocument = Product & Document;
 
 @Schema({ timestamps: true })
 export class Product {
-  @Prop({ required: true, unique: true }) // ✅ ID field add karein
+  @Prop({ required: true, unique: true }) //  ID field add karein
   id: string;
 
   @Prop({ required: true })
