@@ -8,7 +8,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000', // Local development ke liye
-      'https://your-frontend-domain.vercel.app', // Jo aapka Next.js ka Vercel URL hy
+      'https://gymberista.vercel.app', // Jo aapka Next.js ka Vercel URL hy
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
