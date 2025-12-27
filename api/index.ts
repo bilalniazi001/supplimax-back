@@ -14,15 +14,10 @@ async function bootstrap() {
 
   // CORS setup
   nestApp.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://gymberista.vercel.app',
-      'https://supplimax.vercel.app',
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-  });
-
+  origin: '*', // ✅ Sabko allow karo (temporary fix)
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true,
+});
   await nestApp.init();
 }
 
