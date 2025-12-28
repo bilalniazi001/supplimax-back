@@ -1,32 +1,30 @@
-// app.module.ts
+// src/app.module.ts
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config'; // ConfigModule aur ConfigService import kiya
+import { AppController } from './app.controller';
 import { ProductsModule } from './products/products.module';
-import { AuthModule } from './products/auth/auth.module';
-import { UsersModule } from './products/users/users.module';
 
 @Module({
   imports: [
-    // 1. Configuration Module ko load karen
+    // Config Module
     ConfigModule.forRoot({
-      isGlobal: true, // Taa-ke yeh har jgah available ho
+      isGlobal: true,
+      envFilePath: '.env',
     }),
     
-    // 2. Mongoose connection ko Async tareeqay se configure karen
+    // MongoDB Connection
     MongooseModule.forRootAsync({
-      imports: [ConfigModule], // Mongoose ko batana hai ke ConfigModule ki zaroorat hai
+      imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        // .env file se DATABASE_URL variable ki value nikalen
         uri: configService.get<string>('DATABASE_URL'),
       }),
-      inject: [ConfigService], // ConfigService ko inject karen taa-ke use kiya jaa sake
+      inject: [ConfigService],
     }),
     
-    // Aapke baaki modules
+    // Your modules
     ProductsModule,
-    AuthModule,
-    UsersModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}

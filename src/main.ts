@@ -1,18 +1,29 @@
+// src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import serverless from 'serverless-http';
-
-let server;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.init();
-  return serverless(app.getHttpAdapter().getInstance());
+
+  // CORS Setup (Production ke liye allow all)
+  app.enableCors({
+    origin: [
+      'http://localhost:3000', // Local frontend
+      'https://gymberista.vercel.app', // Your frontend
+      'https://supplimax.vercel.app', // Any other domains
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
+  // Optional: Global prefix
+  // app.setGlobalPrefix('api');
+
+  const port = process.env.PORT || 5000;
+  await app.listen(port);
+  
+  console.log(`🚀 Backend running on port ${port}`);
+  console.log(`📡 API Endpoint: http://localhost:${port}`);
 }
 
-export default async function handler(req, res) {
-  if (!server) {
-    server = await bootstrap();
-  }
-  return server(req, res);
-}
+bootstrap();
