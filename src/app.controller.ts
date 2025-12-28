@@ -6,9 +6,15 @@ export class AppController {
   @Get()
   getHello() {
     return { 
-      message: 'Supplimax Backend API is running!',
+      message: 'Supplimax Backend API',
       status: 'OK',
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      endpoints: {
+        products: '/products',
+        featured: '/products/featured/all',
+        categories: '/products/categories/all',
+        health: '/health'
+      }
     };
   }
 

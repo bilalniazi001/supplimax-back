@@ -1,9 +1,12 @@
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // ✅ YEHI LINE CHANGE KARO (EXACT):
+  // Local CORS
   app.enableCors({
-    origin: '*', // Sabko allow karo
+    origin: 'http://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
@@ -11,6 +14,9 @@ async function bootstrap() {
   const port = process.env.PORT || 5000;
   await app.listen(port);
   
-  console.log(`🚀 Backend is running on: http://localhost:${port}`);
+  console.log(`🚀 Local Backend: http://localhost:${port}`);
+  console.log(`📡 Products API: http://localhost:${port}/products`);
 }
+
+// Only run locally
 bootstrap();

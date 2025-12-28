@@ -1,27 +1,29 @@
-// api/index.ts - SIMPLE VERSION
+// api/index.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
-import express from 'express';
-import serverless from 'serverless-http';
+import  express from 'express';
+import  serverless from 'serverless-http';
 
-const app = express();
+const expressApp = express();
 
 async function bootstrap() {
-  const nestApp = await NestFactory.create(
+  const app = await NestFactory.create(
     AppModule,
-    new (require('@nestjs/platform-express')).ExpressAdapter(app)
+    new (require('@nestjs/platform-express')).ExpressAdapter(expressApp)
   );
 
-  // CORS setup
-  nestApp.enableCors({
-  origin: '*', // ✅ Sabko allow karo (temporary fix)
-  methods: 'GET,POST,PUT,DELETE',
-  credentials: true,
-});
-  await nestApp.init();
+  // ✅ CORS - ALLOW EVERYTHING
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
+  await app.init();
 }
 
+// Initialize the app
 bootstrap();
 
 // Export for Vercel
-export default serverless(app);
+module.exports = serverless(expressApp);

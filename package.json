@@ -1,6 +1,7 @@
 {
   "name": "supplimax-backend",
   "version": "1.0.0",
+  "description": "Supplimax Backend API",
   "scripts": {
     "build": "nest build",
     "start": "nest start",
