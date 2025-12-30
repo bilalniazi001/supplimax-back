@@ -1,7 +1,7 @@
 // src/app.module.ts
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MongooseModule } from '@nestjs/mongoose';
+//import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { ProductsModule } from './products/products.module';
 
@@ -12,7 +12,7 @@ import { ProductsModule } from './products/products.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    
+     /*
     // MongoDB Connection
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -21,9 +21,9 @@ import { ProductsModule } from './products/products.module';
       }),
       inject: [ConfigService],
     }),
-  
+  */
     // Your modules
-    ProductsModule,
+    //ProductsModule,
   ],
   controllers: [AppController],
 })
