@@ -22,8 +22,8 @@ import { ProductsModule } from './products/products.module';
       inject: [ConfigService],
     }),
   
-    // Your modules
-    //ProductsModule,
+     //Your modules
+    ProductsModule,
   ],
   controllers: [AppController],
 })
