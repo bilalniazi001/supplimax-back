@@ -18,6 +18,18 @@ export class AppController {
     };
   }
 
+  // app.controller.ts mein add karein
+@Get('products')
+getTestProducts() {
+  return {
+    message: 'Test products (temporary)',
+    data: [
+      { id: 1, name: 'Test Product 1', price: 100, category: 'Protein' },
+      { id: 2, name: 'Test Product 2', price: 200, category: 'Pre Workout' },
+    ]
+  };
+}
+
   @Get('health')
   healthCheck() {
     return {
