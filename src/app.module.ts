@@ -1,6 +1,6 @@
-// src/app.module.ts
+// src/app.module.ts - UPDATED VERSION
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { ProductsModule } from './products/products.module';
@@ -10,19 +10,15 @@ import { ProductsModule } from './products/products.module';
     // Config Module
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
     }),
-     
-    // MongoDB Connection
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DATABASE_URL'),
-      }),
-      inject: [ConfigService],
+    
+    // MongoDB Connection - SIMPLE AND FIXED
+    MongooseModule.forRoot(process.env.DATABASE_URL || 'mongodb://localhost:27017/supplimax', {
+      retryAttempts: 3,
+      retryDelay: 1000,
     }),
-  
-     //Your modules
+    
+    // Your modules
     ProductsModule,
   ],
   controllers: [AppController],
