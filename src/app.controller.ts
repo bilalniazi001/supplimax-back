@@ -19,14 +19,18 @@ export class AppController {
   }
 
   // app.controller.ts mein add karein
+
 @Get('products')
 getTestProducts() {
   return {
-    message: 'Test products (temporary)',
+    message: 'Test Products API',
     data: [
-      { id: 1, name: 'Test Product 1', price: 100, category: 'Protein' },
-      { id: 2, name: 'Test Product 2', price: 200, category: 'Pre Workout' },
-    ]
+      { id: 1, name: 'Whey Protein Premium', price: 59.99, category: 'Protein' },
+      { id: 2, name: 'Pre-Workout Energizer', price: 39.99, category: 'Pre Workout' },
+      { id: 3, name: 'BCAA Recovery', price: 29.99, category: 'Recovery' }
+    ],
+    database: 'checking_connection',
+    timestamp: new Date().toISOString()
   };
 }
 
@@ -34,7 +38,7 @@ getTestProducts() {
   healthCheck() {
     return {
       status: 'healthy',
-      environment: process.env.NODE_ENV || 'development',
+      environment: process.env.NODE_ENV || 'production',
       timestamp: new Date().toISOString()
     };
   }
